@@ -1,16 +1,33 @@
 const socket = io();
 
+// Elements
+
+const $messageForm = document.querySelector('#message-form');
+const $messageFormInput = $messageForm.querySelector('input');
+const $messageFormButton = $messageForm.querySelector('button');
+
 socket.on('message', (message) => {
   console.log(message, 'message');
 });
 
-document.querySelector('#message-form')
-  .addEventListener('submit', (e) => {
-    e.preventDefault();
+$messageForm.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-    const message = e.target.elements.message.value;
+  $messageFormButton.setAttribute('disabled', 'disabled');
 
-    socket.emit('sendMessage', message);
+  const message = e.target.elements.message.value;
 
+  socket.emit('sendMessage', message, (error) => {
+    $messageFormButton.removeAttribute('disabled');
+    $messageFormInput.value = '';
+    $messageFormInput.focus();
+
+    if(error) {
+      return console.log(error);
+    }
+
+    console.log('Message delivered');
   });
+
+});
 
