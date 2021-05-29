@@ -14,12 +14,20 @@ const publicDirPath = path.join(__dirname, '../public');
 app.use(express.static(publicDirPath));
 
 io.on('connection', (socket) => {
-  console.log('new web socket connection');
 
-  // socket.emit('');
-})
+  // socket.emit('message', 'Welcome');
+  socket.broadcast.emit('message', 'A new user has joined');
+
+  socket.on('sendMessage', (message) => {
+    io.emit('message', message);
+  });
+
+  socket.on('disconnect', () => {
+    io.emit('message', 'A user has left!');
+  });
+});
 
 server.listen(port, () => {
-  console.log(`Server is up on port ${port}`);
-})
+  console.log(`Server is up on port ${ port }`);
+});
 
