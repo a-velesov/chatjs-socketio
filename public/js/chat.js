@@ -13,10 +13,10 @@ socket.on('message', (message) => {
   console.log(message, 'message');
 
   const html = Mustache.render(messageTemplate, {
-    message
+    message: message.text,
+    createdAt: message.createdAt
   });
 
-  console.log(html, 'html');
   $messages.insertAdjacentHTML('beforeend', html);
 });
 
