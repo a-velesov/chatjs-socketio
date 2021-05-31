@@ -8,37 +8,17 @@
     <title>Chat App</title>
   </head>
   <body>
-    
-    <div class="chat">
-      <div class="chat__sidebar">
-      
-      </div>
-      <div class="chat__main">
-        <div id="messages" class="chat__messages"></div>
-        
-        <div class="compose">
-          <form id="message-form">
-            <input name="message" type="text" />
-            <button>Send</button>
-          </form>
-        </div>
-  
+    <div class="centered-form">
+      <div class="centered-form__box">
+        <h1>Join</h1>
+        <form action="chat.html">
+          <label>Display name</label>
+            <input required type="text" name="username">
+          <label>Room</label>
+            <input required type="text" name="room">
+          <button>Join</button>
+        </form>
       </div>
     </div>
-
-    <script id="message-template" type="text/html">
-      <div class="message">
-        <p>
-          <span class="message__name">Username</span>
-          <span class="message__meta">{{ createdAt }}</span>
-        </p>
-        <p>{{ message }}</p>
-      </div>
-    </script>
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></script>
-    <script src="socket.io/socket.io.js"></script>
-    <script src="js/chat.js"></script>
   </body>
 </html>
