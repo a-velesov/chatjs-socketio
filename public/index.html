@@ -3,21 +3,36 @@
   <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link href="/" rel="stylesheet">
+    <link href="img/favicon.png" rel="icon">
+    <link href="css/styles.min.css" rel="stylesheet">
     <title>Chat App</title>
   </head>
   <body>
     
-    <div id="messages"></div>
-    
-    <form id="message-form">
-      <input name="message" type="text" />
-      <button>Send</button>
-    </form>
+    <div class="chat">
+      <div class="chat__sidebar">
+      
+      </div>
+      <div class="chat__main">
+        <div id="messages" class="chat__messages"></div>
+        
+        <div class="compose">
+          <form id="message-form">
+            <input name="message" type="text" />
+            <button>Send</button>
+          </form>
+        </div>
   
+      </div>
+    </div>
+
     <script id="message-template" type="text/html">
-      <div>
-        <p>{{ createdAt }} - {{ message }}</p>
+      <div class="message">
+        <p>
+          <span class="message__name">Username</span>
+          <span class="message__meta">{{ createdAt }}</span>
+        </p>
+        <p>{{ message }}</p>
       </div>
     </script>
   
