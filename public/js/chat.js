@@ -9,12 +9,18 @@ const $messages = document.querySelector('#messages');
 // Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
 
+// Options
+const {
+        username,
+        room,
+      } = Qs.parse(location.search, { ignoreQueryPrefix: true });
+
 socket.on('message', (message) => {
   console.log(message, 'message');
 
   const html = Mustache.render(messageTemplate, {
     message: message.text,
-    createdAt: message.createdAt
+    createdAt: message.createdAt,
   });
 
   $messages.insertAdjacentHTML('beforeend', html);
@@ -26,7 +32,7 @@ $messageForm.addEventListener('submit', (e) => {
 
   const message = e.target.elements.message.value;
 
-  if (message === '') return;
+  if(message === '') return;
 
   $messageFormButton.setAttribute('disabled', 'disabled');
 
@@ -42,5 +48,10 @@ $messageForm.addEventListener('submit', (e) => {
     console.log('Message delivered');
   });
 
+});
+
+socket.emit('join', {
+  username,
+  room,
 });
 
