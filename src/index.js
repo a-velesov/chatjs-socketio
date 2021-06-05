@@ -40,6 +40,10 @@ io.on('connection', (socket) => {
 
     socket.emit('message', generateMessage('Welcome', 'Admin'));
     socket.broadcast.to(user.room).emit('message', generateMessage(`${ user.username } has joined`, 'Admin'));
+    io.to(user.room).emit('roomData', {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
 
     callback();
 
@@ -62,6 +66,10 @@ io.on('connection', (socket) => {
 
     if(user) {
       io.to(user.room).emit('message', generateMessage(`${ user.username } has left!`, user.username));
+      io.to(user.room).emit('roomData', {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
     }
   });
 });

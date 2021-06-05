@@ -8,6 +8,7 @@ const $messages = document.querySelector('#messages');
 
 // Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
+const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML;
 
 // Options
 const {
@@ -23,6 +24,18 @@ socket.on('message', (message) => {
   });
 
   $messages.insertAdjacentHTML('beforeend', html);
+});
+
+socket.on('roomData', ({
+  room,
+  users,
+}) => {
+  console.log(users, 'users');
+  document.querySelector('#sidebar').innerHTML = Mustache.render(sidebarTemplate, {
+    room,
+    users,
+  });
+
 });
 
 $messageForm.addEventListener('submit', (e) => {
