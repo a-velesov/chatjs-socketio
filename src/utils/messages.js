@@ -1,8 +1,9 @@
 const dateFns = require("date-fns");
 
-const generateMessage = (text) => {
+const generateMessage = (text, username) => {
   return {
     text,
+    username,
     createdAt: dateFns.format(new Date(), 'HH:mm:ss'),
   };
 };

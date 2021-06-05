@@ -16,10 +16,9 @@ const {
       } = Qs.parse(location.search, { ignoreQueryPrefix: true });
 
 socket.on('message', (message) => {
-  console.log(message, 'message');
-
   const html = Mustache.render(messageTemplate, {
     message: message.text,
+    username: message.username,
     createdAt: message.createdAt,
   });
 
@@ -53,5 +52,11 @@ $messageForm.addEventListener('submit', (e) => {
 socket.emit('join', {
   username,
   room,
+}, (error) => {
+
+  if(error) {
+    alert(error);
+    location.href = '/';
+  }
 });
 
